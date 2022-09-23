@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -17,6 +16,19 @@ var numericKeyboard = tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardButtonData("4", "4"),
 		tgbotapi.NewInlineKeyboardButtonData("5", "5"),
 		tgbotapi.NewInlineKeyboardButtonData("6", "6"),
+	),
+)
+
+var replyKeyboard = tgbotapi.NewReplyKeyboard(
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("1"),
+		tgbotapi.NewKeyboardButton("2"),
+		tgbotapi.NewKeyboardButton("3"),
+	),
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("4"),
+		tgbotapi.NewKeyboardButton("5"),
+		tgbotapi.NewKeyboardButton("6"),
 	),
 )
 
@@ -38,10 +50,9 @@ func main() {
 		log.Panic(err)
 	}
 
-	fmt.Print(".")
 	for update := range updates {
 		if update.CallbackQuery != nil {
-			fmt.Print(update)
+			// fmt.Print(update)
 
 			bot.AnswerCallbackQuery(tgbotapi.NewCallback(update.CallbackQuery.ID, update.CallbackQuery.Data))
 			bot.Send(tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, update.CallbackQuery.Data))
@@ -54,8 +65,8 @@ func main() {
 				msg.ReplyMarkup = numericKeyboard
 
 			case "start":
-				msg.Text = "Welcome to LoremMarket!"
-				msg.ReplyMarkup = numericKeyboard
+				msg.Text = update.Message.From.FirstName + ", welcome to LoremMarket!"
+				msg.ReplyMarkup = replyKeyboard
 			}
 
 			bot.Send(msg)
