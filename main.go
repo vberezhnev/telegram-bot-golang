@@ -9,7 +9,7 @@ import (
 
 var replyKeyboard = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
-		tgbotapi.NewKeyboardButton("Calatog"),
+		tgbotapi.NewKeyboardButton("Catalog"),
 		tgbotapi.NewKeyboardButton("My profile"),
 		tgbotapi.NewKeyboardButton("About this bot"),
 	),
@@ -50,6 +50,23 @@ func main() {
 
 			default:
 				msg.Text = "Invalid response!"
+			}
+
+			switch update.Message.Text {
+			case "Catalog":
+				msg.Text = "catalog"
+
+			case "About":
+				msg.Text = "about"
+
+			case "About this bot":
+				msg.Text = "some info about this bot"
+
+			case "My profile":
+				msg.Text = "my profile"
+
+			default:
+				msg.Text = "Error!"
 			}
 
 			bot.Send(msg)
