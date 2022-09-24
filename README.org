@@ -1,11 +1,10 @@
-LoremMarket -- telegram seller bot.
+* LoremMarket -- telegram seller bot.
 
-* Tech stack:
+** Tech stack:
  - Go
  - [[https://github.com/go-telegram-bot-api/telegram-bot-api][telegram-bot-api]]
  - JSON
 
-
-* Tasks
-** TODO Create JSON parser with product items.
-** TODO Add page pagination.
+** Tasks
+- [ ] Create JSON parser with product items.
+- [X] Add page pagination.
