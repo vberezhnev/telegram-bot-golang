@@ -7,6 +7,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
+// Rebply keyboard options
 var replyKeyboard = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
 		tgbotapi.NewKeyboardButton("Catalog"),
@@ -16,6 +17,8 @@ var replyKeyboard = tgbotapi.NewReplyKeyboard(
 )
 
 func main() {
+
+	// API of telegram bot. You can get it from the BotFather (https://t.me/BotFather)
 	bot, err := tgbotapi.NewBotAPI("5532916297:AAGl7CvE3hs23M-iq6xoTtmpiKpK5tkASw8")
 	if err != nil {
 		log.Panic(err)
@@ -43,6 +46,7 @@ func main() {
 		if update.Message != nil {
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
 
+			// Commands handling (E.g "/start")
 			switch update.Message.Command() {
 			case "start":
 				msg.Text = update.Message.From.FirstName + ", welcome to LoremMarket!"
@@ -52,6 +56,7 @@ func main() {
 				msg.Text = "Invalid response!"
 			}
 
+			// Text handling (E.g "Catalog" or "About")
 			switch update.Message.Text {
 			case "Catalog":
 				msg.Text = "catalog"
@@ -64,11 +69,9 @@ func main() {
 
 			case "My profile":
 				msg.Text = "my profile"
-
-			default:
-				msg.Text = "Error!"
 			}
 
+			// Sending the last message
 			bot.Send(msg)
 		}
 	}
